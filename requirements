@@ -1,2 +1,0 @@
-pip install flask flask-mysql flask-cors
-pip install mysql-connector-python
