@@ -29,6 +29,10 @@ Abra o servidor local no terminal
 python app.py
 ```
 
+## Como usar
+![Image](https://github.com/user-attachments/assets/f003909f-8bb0-4a3c-91d4-52e24cbccc42)
+![Image](https://github.com/user-attachments/assets/6e449e51-6f31-4437-a347-dbf564af5344)
+
 ## Ferramentas
 - **Python**
 - **Flask**
