@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestão de Verbas</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="static/style.css">
     <script defer src="static/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -26,11 +26,106 @@
         <div class="offcanvas-body">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://127.0.0.1:5000/actions" target="_blank">
-                        <i class="fas fa-graduation-cap"></i> Banco de Dados (JSON)
+                    <a class="nav-link" href="http://127.0.0.1:5000/acoes" target="_blank">
+                        <i class="fas fa-list"></i> Visualizar Ações (JSON)
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:5000/tipos_acao" target="_blank">
+                        <i class="fas fa-tags"></i> Visualizar Tipos (JSON)
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="btnAddTipoAcao" data-bs-toggle="modal" data-bs-target="#modalTipoAcao">
+                        <i class="fas fa-plus-circle"></i> Adicionar Tipo de Ação
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="btnGerenciarTiposAcao" data-bs-toggle="modal" data-bs-target="#modalGerenciarTiposAcao">
+                        <i class="fas fa-cog"></i> Gerenciar Tipos de Ação
                     </a>
                 </li>
             </ul>
+        </div>
+    </div>
+
+    <!-- Modal para adicionar tipo de ação -->
+    <div class="modal fade" id="modalTipoAcao" tabindex="-1" aria-labelledby="modalTipoAcaoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTipoAcaoLabel">Adicionar Tipo de Ação</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="tipoAcaoForm">
+                        <div class="mb-3">
+                            <label for="nomeTipoAcao" class="form-label">Nome do Tipo de Ação</label>
+                            <input type="text" class="form-control" id="nomeTipoAcao" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnSalvarTipoAcao">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- Modal para gerenciar tipos de ação -->
+    <div class="modal fade" id="modalGerenciarTiposAcao" tabindex="-1" aria-labelledby="modalGerenciarTiposAcaoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalGerenciarTiposAcaoLabel">Gerenciar Tipos de Ação</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nome</th>
+                                    <th class="text-center">Editar</th>
+                                    <th class="text-center">Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tiposAcaoTableBody">
+                                <!-- Dados serão carregados dinamicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para editar tipo de ação -->
+    <div class="modal fade" id="modalEditarTipoAcao" tabindex="-1" aria-labelledby="modalEditarTipoAcaoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEditarTipoAcaoLabel">Editar Tipo de Ação</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editarTipoAcaoForm">
+                        <input type="hidden" id="editarCodigoTipoAcao">
+                        <div class="mb-3">
+                            <label for="editarNomeTipoAcao" class="form-label">Nome do Tipo de Ação</label>
+                            <input type="text" class="form-control" id="editarNomeTipoAcao" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnSalvarEditarTipoAcao">Salvar</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -42,11 +137,8 @@
                 <div class="col-md-4 mb-3">
                     <label for="actionType" class="form-label">Ação</label>
                     <select id="actionType" class="form-select">
-                        <option selected>Selecione o tipo da ação...</option>
-                        <option value="Palestra">Palestra</option>
-                        <option value="Apoio Gráfico">Apoio Gráfico</option>
-                        <option value="Evento">Evento</option>
-                        <option value="Reunião">Reunião</option>
+                        <option selected value="">Selecione o tipo da ação...</option>
+                        <!-- Opções serão carregadas dinamicamente -->
                     </select>
                 </div>
                 <div class="col-md-4 mb-3">
@@ -77,6 +169,7 @@
                             <th class="sortable">Ação <i class="fas fa-sort"></i></th>
                             <th class="sortable">Data prevista <i class="fas fa-sort"></i></th>
                             <th class="sortable">Investimento previsto <i class="fas fa-sort"></i></th>
+                            <th class="sortable">Data de cadastro <i class="fas fa-sort"></i></th>
                             <th class="text-center">Editar</th>
                             <th class="text-center">Excluir</th>
                         </tr>
