@@ -1,3 +1,9 @@
+## Projeto Web para Marketing
+![Image](https://github.com/user-attachments/assets/1b557491-bf26-48d7-95c6-fe271ce327d1)
+![Image](https://github.com/user-attachments/assets/72981373-a6d5-40ca-8cc5-ad65887ef254)
+![Image](https://github.com/user-attachments/assets/1794fe8d-a36e-4c03-a197-530bf89c56c1)
+![Image](https://github.com/user-attachments/assets/4a5d3d6f-9845-41e9-93ec-4b23de1e3827)
+
 ## Instalação
 Clone o repositório
 
@@ -28,10 +34,6 @@ Abra o servidor local no terminal
 ```bash
 python app.py
 ```
-
-## Como usar
-![Image](https://github.com/user-attachments/assets/f003909f-8bb0-4a3c-91d4-52e24cbccc42)
-![Image](https://github.com/user-attachments/assets/6e449e51-6f31-4437-a347-dbf564af5344)
 
 ## Ferramentas
 - **Python**
