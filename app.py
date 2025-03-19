@@ -226,6 +226,7 @@ def update_acao(id):
         cursor.close()
         conn.close()
 
+
 @app.route('/acoes/<int:id>', methods=['DELETE'])
 def delete_acao(id):
     conn = connectDb()
@@ -240,7 +241,10 @@ def delete_acao(id):
         if cursor.rowcount == 0:
             return jsonify({'error': 'Ação não encontrada'}), 404
         
-        return jsonify({'message': 'Ação removida com sucesso!'}), 200
+        cursor.execute('ALTER TABLE acao AUTO_INCREMENT = 1')
+        conn.commit()
+        
+        return jsonify({'message': 'Ação removida com sucesso! IDs reiniciados.'}), 200
     except mysql.connector.Error as e:
         return jsonify({'error': f'Erro ao excluir ação: {e}'}), 500
     finally:
@@ -285,16 +289,19 @@ def delete_tipo_acao(codigo_acao):
     conn = connectDb()
     if not conn:
         return jsonify({'error': 'Erro ao conectar ao banco de dados'}), 500
-
+    
     try:
         cursor = conn.cursor()
         cursor.execute('DELETE FROM tipo_acao WHERE codigo_acao = %s', (codigo_acao,))
         conn.commit()
-
+        
         if cursor.rowcount == 0:
             return jsonify({'error': 'Tipo de ação não encontrado'}), 404
-
-        return jsonify({'message': 'Tipo de ação removido com sucesso!'}), 200
+        
+        cursor.execute('ALTER TABLE tipo_acao AUTO_INCREMENT = 1')
+        conn.commit()
+        
+        return jsonify({'message': 'Tipo de ação removido com sucesso! IDs reiniciados.'}), 200
     except mysql.connector.Error as e:
         return jsonify({'error': f'Erro ao excluir tipo de ação: {e}'}), 500
     finally:
