@@ -8,8 +8,8 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 
 db_config = {
     'host': 'localhost',
-    'user': 'root',
-    'password': '10451236aA@',
+    'user': 'seu usuario',
+    'password': 'sua senha',
     'database': 'marketing_db',
     'auth_plugin': 'mysql_native_password'
 }
